@@ -65,13 +65,12 @@ const add =async (e)=>{
   document.getElementById("lnameval").innerHTML="Invalid name !"
  }else if(!(inp3.match(CIN_regex))){
   document.getElementById("cinval").innerHTML="Invalid CIN !"
- }else if(!(inp4.match(phoneregex))){
-  document.getElementById("emailval").innerHTML="Invalid email !"
+ }else if(!(inp5.match(phoneregex))){
+  document.getElementById("phoneval").innerHTML="Invalid Phone Number !"
  }else if(!(inp4.match(email_regex))){
   document.getElementById("emailval").innerHTML="Invalid email !"
- }
- 
- var obj = {fname: '',
+ }else {
+  var obj = {fname: '',
      lname: '',
      cin: '',
      email: '',
@@ -90,6 +89,9 @@ obj.phone=inp5
    .catch(function (error) {
      console.log(error);
    }).then(() => location.reload());
+ }
+ 
+ 
 }
 
 

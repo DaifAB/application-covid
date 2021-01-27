@@ -37,6 +37,12 @@ router.get('/', async (req,res) => {
           });
     } catch (err) {
         res.status(500).json({ message: err.message})
+        myLogger.log({
+            message: err.message,
+            level: ["error"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/Surveys/",
+          });
     }
 })
 
@@ -50,8 +56,20 @@ router.get('/findsurveybypatient/:idpatient', async (req,res) => {
     try{
         const surveys = await Survey.find({}).where('id_patient').equals(req.params.idpatient)
         res.send(surveys)
+        myLogger.log({
+            message:" Survey found",
+            level: ["info"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/surveys/findsurveybypatient/",
+          });
     } catch (err) {
         res.status(500).json({ message: err.message})
+        myLogger.log({
+            message: err.message,
+            level: ["error"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/surveys/findsurveybypatient/",
+          });
     }
 })
 
@@ -75,8 +93,20 @@ router.post('/', async (req,res) => {
     try {
         const newSurvey = await survey.save()
         res.status(201).json(newSurvey)
+        myLogger.log({
+            message:" Survey created",
+            level: ["info"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/surveys/",
+          });
     } catch (err) {
         res.status(400)
+        myLogger.log({
+            message: err.message,
+            level: ["error"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/Surveys/",
+          });
     }
 })
 
@@ -126,8 +156,20 @@ router.patch('/:id', getSurvey, async (req,res) => {
     try {
         const updatedSurvey = await res.survey.save()
         res.json(updatedSurvey)
+        myLogger.log({
+            message:" Survey updated",
+            level: ["info"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/surveys//",
+          });
     } catch (err) {
         res.status(500).json({ message: err.message})
+        myLogger.log({
+            message: err.message,
+            level: ["error"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/Surveys/",
+          });
     }
 })
 
@@ -136,8 +178,20 @@ router.delete('/:id', getSurvey, async (req,res) => {
     try {
         await res.survey.remove()
         res.json({ message: 'Survey Deleted'})
+        myLogger.log({
+            message:" Survey Deleted",
+            level: ["info"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/surveys/",
+          });
     } catch (err) {
         res.status(500).json({ message: err.message})
+        myLogger.log({
+            message: err.message,
+            level: ["error"],
+            Date: day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second,
+            http: "localhost:" + 3000 + "/Surveys/",
+          });
     }
 })
 
