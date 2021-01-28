@@ -5,6 +5,7 @@ const tbodyTable = document.querySelector('#coronaStat');
 const formCountries = document.querySelector('#countries');
 // const graphBtn = document.querySelector('#graphShow');
 const showGraphCountries = document.querySelector('#showCountries');
+const mapping = document.querySelector('#mapp');
 
 
 function fetchData() {
@@ -121,7 +122,9 @@ $("#countries").click(function() {
             arrDeaths.push(country.Deaths);
             arrRecovred.push(country.Recovered);
             arrDates.push(country.Date);
-
+            // show map of each country:
+            var html1 = `<iframe src="http://maps.google.com/maps?q=${data[0].Lat},${data[0].Lon}&z=16&output=embed" style="width:100%;height:578px;" id="frame"></iframe>`;
+            mapping.innerHTML = html1;
             // draw a graph for each counrty :
             var mychart = document.getElementById('myChart1').getContext('2d');
             var chart = new Chart(mychart, {
@@ -160,7 +163,7 @@ $("#countries").click(function() {
             
             $('#dataCountry').append(`
                 <tr>
-                    <td>${country.Country}</td>
+                    <td id="name">${country.Country}</td>
                     <td>${country.CountryCode}</td>
                     <td>${country.Confirmed}</td>
                     <td>${country.Deaths}</td>
@@ -169,8 +172,5 @@ $("#countries").click(function() {
                 </tr>
         `)
         }).join();
-
     });
-
-    //console.log(document.getElementById('allDates'));
 });
