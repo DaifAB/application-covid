@@ -14,7 +14,7 @@
         margin: 20px;
         border: 2px solid black;
       }
-      #loadCount, #mapPos, #btn, #showCountries{
+      #loadCount, #search, #start, #end, #mapPos, #btn, #showCountries{
         padding: 8px 20px;
         border: 2px solid black;
       }
@@ -67,8 +67,9 @@
             <option id="test"> Select Your Country </option>
           </select>
           <br>
-          <input type="date" placeholder="Specify Your Start Date">
-          <input type="date" placeholder="Specify Your End Date">
+          <input type="date" placeholder="Specify Your Start Date" id="start">
+          <input type="date" placeholder="Specify Your End Date" id="end">
+          <button id="search" class="btn btn-light">Search</button>
         </center>
         <br>
         <canvas id="myChart1"></canvas><br>

@@ -160,6 +160,8 @@ $("#countries").click(function() {
                 },
                 option : {}
             })
+
+            
             
             $('#dataCountry').append(`
                 <tr>
@@ -173,4 +175,80 @@ $("#countries").click(function() {
         `)
         }).join();
     });
+
+
+
 });
+
+    // specify the date of graph if you want :
+    $("#search").click(function () {
+        const url = "https://api.covid19api.com/dayone/country";
+        var coun = document.getElementById('countries').value;
+        var startDate = document.getElementById('start').value;
+        var endDate = document.getElementById('end').value;
+
+        var getDateArray = function(start, end) {
+            var arr = new Array(), dt = new Date(start);
+            while (dt <= end) {
+              arr.push(new Date(dt));
+              dt.setDate(dt.getDate() + 1);
+            }
+            return arr;
+          }
+          var dateArr = getDateArray(new Date(startDate), new Date(endDate));
+          console.log(dateArr)
+
+        //console.log(start, end, country);
+        fetch(`${url}/${coun}`).then(res => {
+            return res.json();
+        }).then(stat => {
+            var arrActive = [];
+            var arrConfirmed = [];
+            var arrDeaths = [];
+            var arrRecovred = [];
+            //var dateArr = [];
+            //console.log(arrDates);
+            stat.map(date => {
+                arrActive.push(date.Active);
+                arrConfirmed.push(date.Confirmed);
+                arrDeaths.push(date.Deaths);
+                arrRecovred.push(date.Recovered);
+                //dateArr.push();
+                
+                var mychart = document.getElementById('myChart1').getContext('2d');
+                var chart = new Chart(mychart, {
+                    type : 'line',
+                    data : {
+                        labels : dateArr,
+                        datasets : [
+                            {
+                                label : "Total Confirmed",
+                                data : arrConfirmed,
+                                backgroundColor : "gray",
+                                minBarLength : 100,
+                            },
+                            {
+                                label : "Total Deaths",
+                                data : arrDeaths,
+                                backgroundColor : "red",
+                                minBarLength : 100,
+                            },
+                            {
+                                label : "Total Recovred",
+                                data : arrRecovred,
+                                backgroundColor : "green",
+                                minBarLength : 100,
+                            },
+                            {
+                                label : "Total Active",
+                                data : arrRecovred,
+                                backgroundColor : "orange",
+                                minBarLength : 100,
+                            }
+                        ]
+                    },
+                    option : {}
+                })
+            })
+        })
+    })
